@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.entity.Reservation">
+
+	<select id="findAll"
+		resultType="com.example.demo.entity.Reservation">
+		SELECT id,name,phone_number AS phonenumber,email,
+		reservation_date AS reservationDate,reservation_time AS
+		reservationTime,number_of_people AS numberOfPeople,memo
+		FROM reservation
+		ORDER BY reservation_date,reservation_time
+	</select>
+	
+	<select id="getTotalPeople" resultType="int">
+	SELECT COALESCE(SUM(number_of_people),0)
+	FROM reservation
+	</select>
+
+	<insert id="save"
+		parameterType="com.example.demo.entity.Reservation">
+
+		INSERT INTO reservation(id,name,phone_number,email,
+		reservation_date,reservation_time,number_of_people,memo
+		)
+		VALUES(
+		#{name},#{phoneNumber},#{email},
+		#{reservationDate},#{reservationTime},
+		#{numberOfPeople}, #{memo}
+		)
+	</insert>
+	
+	<delete id="deleteById">
+	DELETE FROM reservation
+	WHERE id = #{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>予約システムログイン</title>
+
+	<style>
+		body{
+		margin:0;
+		min-height:100vh;
+		}
+		
+		/** タイトル */
+		.title{
+			text-align: center;
+			margin-top: 60px;
+			margin-bottom: 0;
+		}
+		
+		/** ログインフォーム全体 */
+		.login-area{
+			min-height:calc(100vh - 100px);
+			
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
+			text-align: center;
+			transform: translateY(-50px);
+		}
+		.login-form{
+			width: 350px;
+			text-align: center;
+		}
+		.login-form div{
+			margin-bottom: 30px;
+		}
+		.login-form label{
+			display: inline-block;
+			width: 100px;
+			text-align: right;
+			margin-right: 10px;
+		}
+		.login-form input[type="text"],
+		.login-form input[type="password"]{
+			width: 180px;
+			box-sizing: border-box;
+		}
+		.login-form input[type="submit"]{
+			padding: 8px 25px;
+			margin-left: 110px;
+		}
+	</style>
+	</head>
+	
+	<body>
+		<!-- タイトル -->
+		<h2 class="title">予約システムログイン</h2>
+	
+	<!-- ログインエリア -->
+	<div class ="login-area">
+	<div class = "login-form">	
+		
+	<!-- エラー表示 -->
+	<div th:if="${param.error}">
+		<p style="color: red;">ログインIDまたはパスワードが違います</p>
+		</div>
+		
+	<!--ログアウト表示 -->
+	<div th:if="${param.logout}">
+		<p style="color:blue">ログアウトしました</p>
+	</div>
+		<form th:action="@{/authentication}" method="post" th:object="${loginForm}">
+         
+			<div>
+			<!-- ユーザー名 -->
+			<label for="usernameInput">ログインID</label>
+			<input type="text" th:field="*{usernameInput}">
+			</div>
+			
+			<div>
+				<!-- パスワード -->
+			<label for="passwordInput">パスワード</label>
+			<input type="password" th:field="*{passwordInput}">
+			</div>
+			<div>
+				<input type="submit" value="ログイン" >
+			</div>
+			</form>
+			
+	     </div>
+	
+	  </div>	
+	 
+    </body>
+</html>

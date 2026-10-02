@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.tymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>予約登録</title>
+</head>
+
+<body>
+ <h2>予約登録</h2>
+ <form action="/reservations" method="post">
+	
+	<p>
+	 名前：
+	<input type ="text" name="name" required>
+	</p>
+	
+	<p>
+	電話番号：
+	<input type ="tel" name="phonenumber">
+	</p>
+	
+	<p>
+	メールアドレス：
+	<input type ="text" name="email">
+	</p>
+	
+	<p>
+	予約日：
+	<input type ="text" name="reservationdate"required>
+	</p>
+	
+	<p>
+	予約時間：
+    <input type ="text" name="reservationtime"　min="9:00" step="1800">
+	</p>
+	
+	<p>
+	予約人数：
+	<input type ="text" name="numberOfPeople" min="1" required>
+	</p>
+	
+	<p>
+	備考欄：
+	<input type ="text" name="name" required>
+	</p>
+	
+ </form>
+   <p>
+	<a href="/"> 戻る </a>
+   </p>
+
+</body>
+</html>

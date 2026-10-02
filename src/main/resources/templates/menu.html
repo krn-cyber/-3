@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.tymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>メニュー</title>
+</head>
+<body>
+    <h2>メニュー画面</h2>
+	<hr>
+	
+<!--  予約フォーム -->
+	<a th:href="@{/reservation/new}">
+	 予約フォームへ
+      </a>
+	    <br>
+
+<!--  予約一覧 -->
+<a th:href="@{/reservations}">
+    予約一覧を見る
+    </a>	
+  
+	<br><br>
+
+<!--  ログインしているユーザー名 -->  	
+<div sec:authentication="name">
+	ログインユーザー
+	   </div>
+	   
+<!--  認証されたユーザーだけ表示 -->.>
+	 <div sec:authorize="isAuthenticated()">
+		ログインしています
+	</div>
+	
+	<br>
+	
+<!-- ログアウト -->>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="ログアウト">
+	</form>
+	
+</body>
+</html>
