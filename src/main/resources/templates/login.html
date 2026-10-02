@@ -71,21 +71,24 @@
 		<p style="color:blue">ログアウトしました</p>
 	</div>
 		<form th:action="@{/authentication}" method="post" th:object="${loginForm}">
-         
-			<div>
+    
+	<form th:action="@{/authentication}" method="post">
+			
+		<div>
 			<!-- ユーザー名 -->
 			<label for="usernameInput">ログインID</label>
-			<input type="text" th:field="*{usernameInput}">
+			<input type="text" name="username">
 			</div>
 			
 			<div>
 				<!-- パスワード -->
 			<label for="passwordInput">パスワード</label>
-			<input type="password" th:field="*{passwordInput}">
+			<input type="password" name="password">
 			</div>
 			<div>
 				<input type="submit" value="ログイン" >
 			</div>
+			
 			</form>
 			
 	     </div>

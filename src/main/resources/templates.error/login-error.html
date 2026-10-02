@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+<meta charset="UTF-8">
+<title>エラー</title>
+
+<style>
+	body{
+		margin: 0;
+		min-height: 100vh;
+		
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		
+		text-align: center;
+	}
+	.error-area {
+	           width: 400px;
+	       }
+
+	       .error-message {
+	           color: red;
+	           margin-bottom: 30px;
+	       }
+
+	       .back-button {
+	           padding: 8px 25px;
+	       }
+</style>
+</head>
+
+<body>
+   <div class="error-area">
+	
+	<h2>エラーが発生しました</h2>
+	
+	<p class="error-message">
+		ログイン処理でエラーが発生しました。
+	</p>
+	<a th:href="@{/login}">
+	<button href="@back-button">ログイン画面に戻る</button>
+	</a>
+   </div>
+   
+</body>
+</html>
