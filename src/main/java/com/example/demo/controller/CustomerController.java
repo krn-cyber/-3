@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Customer;
 import com.example.demo.service.CustomerService;
@@ -31,21 +32,30 @@ public class CustomerController {
 		customerService.register(customer);
 		return "redirect:/customer/complete";
 	}
+	
+	// 顧客登録完了画面
 	@GetMapping("/customer/complete")
 	public String complete() {
 		return "customer-complete";
 	}
-	// 顧客検索を実行する
+	
+	// 顧客検索画面を表示する
 	@GetMapping("/customer/search")
+	public String searchPage(Model model) {
+	model.addAttribute("name","");
+	model.addAttribute("customer",List.of());
+	    return "customer-search";
+	}
+	
+	// 顧客検索を実行する
+	@GetMapping("/customer/search/result")
 	public String search(
-			@org.springframework.web.bind.annotation.RequestParam
-			String name,Model model) {
+			@RequestParam String name,Model model) {
 	
 		List<Customer>customers = customerService.searchByName(name);
 		
 		model.addAttribute("customers",customers);
 		model.addAttribute("name",name);
-		
 		return "customer-search";	
 	}
 }
