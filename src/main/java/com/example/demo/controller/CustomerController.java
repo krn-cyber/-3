@@ -42,7 +42,6 @@ public class CustomerController {
 	// 顧客検索画面を表示する
 	@GetMapping("/customer/search")
 	public String searchPage(Model model) {
-	model.addAttribute("name","");
 	model.addAttribute("customer",List.of());
 	    return "customer-search";
 	}
@@ -50,12 +49,21 @@ public class CustomerController {
 	// 顧客検索を実行する
 	@GetMapping("/customer/search/result")
 	public String search(
-			@RequestParam String name,Model model) {
+			@RequestParam(required = false)Long id,
+			@RequestParam(required = false)String name,
+			@RequestParam(required = false)String phoneNumber,
+			@RequestParam(required = false)String email,
+			Model model) {
 	
 		List<Customer>customers = customerService.searchByName(name);
 		
 		model.addAttribute("customers",customers);
+		
+		model.addAttribute("id",id);
 		model.addAttribute("name",name);
+		model.addAttribute("phoneNumber",phoneNumber);
+		model.addAttribute("email",email);
+		
 		return "customer-search";	
 	}
 }

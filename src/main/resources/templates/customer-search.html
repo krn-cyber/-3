@@ -3,20 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <title>顧客検索</title>
+
+<style>
+	body{
+		text-align: center;
+		margin-top: 50px;
+		}
+		
+	.search-form{
+		width: 450px;
+		margin: 30px auto;
+	}
+	
+	.form-row{
+		display: grid;
+		grid-template-columns: 130px 250px;
+		column-gap: 15px;
+		align-items: center;
+		margin-bottom: 15px;
+	}
+	
+	.form-row label{
+		text-align: right;
+	}
+	
+	.form-row input{
+		width: 250px;
+		height: 30px;
+		box-sizing: border-box;
+	}
+	
+	.search-button{
+		margin-top: 20px;
+	}
+	
+	.search-button button{
+		padding: 8px 30px;
+		font-size: 16px;
+	}
+	
+	table{
+		margin: 30px auto;
+		border-collapse: collapse;
+	}
+	
+	th,
+	td{
+		padding: 8px 15px;
+		border: 1px solid #333;
+	}
+</style>
 </head>
+
 <body>
     <h1>顧客検索</h1>
 	
 	<!-- 検索フォーム -->
 	<form th:action="@{/customer/search}" method="get">
 		
-		<label>名前：</label>
+		<div class="form-row">
+		<label>　　顧客ID　　：</label>
+		<input type="text" name="id" th:value="${id}">
+		</div>
 		
-		<input type="text"
-		       name="name"
-			   th:value="${name}">
-			
-	    <button type="submit">
+		<div class="form-row">
+		<label>　　名前　　　：</label>	
+		<input type="text" name="name" th:value="${name}">	
+	    </div>
+		
+		<div class="form-row">
+		<label>　電話番号　　：</label>	
+		<input type="tel" name="phoneNumber" th:value="${phoneNumber}">
+		</div>
+		
+		<div class="form-row">
+		<label>メールアドレス：</label>
+		<input type="email" name="email" th:value="${email}">
+		</div>
+		
+		<button type="submit">
 			検索
 		</button>	   
 	</form>
@@ -30,7 +95,7 @@
 	<table border="1">
 		
 		<tr>
-			<th>ID</th>
+			<th>顧客ID</th>
 			<th>名前</th>
 			<th>電話番号</th>
 			<th>メール</th>
