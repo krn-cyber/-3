@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>顧客登録完了</title>
+
+<style>
+	body{
+		text-align: center;
+		margin-top: 100px;
+	}
+	.button-area{
+		margin-top:30px;
+	} 
+	a{
+		display:inline-block;
+		padding: 10px 25px;
+		margin: 10px;
+		border: 1px splid #333;
+		border-radius: 5px;
+		text-decoration: none;
+		color: black;
+	}
+	
+</style>
+</head>
+<body>
+     <h1>顧客登録完了</h1>
+	 
+	 <p>顧客の登録が完了しました</p>
+	 
+	 <div class="button-area">
+		
+		<a th:href="@{/customer/search}">
+			顧客検索
+		</a>
+		
+	 <!-- 顧客登録画面へ -->
+	 <a th:href="@{/customer/new}">
+		新しい顧客を登録する
+	 </a>
+	 
+	 </div>
+	 
+</body>
+</html>

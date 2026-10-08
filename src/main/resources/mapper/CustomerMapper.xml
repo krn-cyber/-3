@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.CustomerMapper">
+
+<!-- 顧客登録 -->
+<insert id="insert">
+ INSERT INTO customer
+   (name,phone_number,email)
+   VALUES
+   (#{name},#{phoneNumber},#{email})
+   </insert>
+
+<!-- 名前で顧客検索 -->   
+<select id="searchByName" resultType="com.example.demo.entity.Customer">
+ SELECT id,name,phone_number AS phonenumber,email FROM customer
+ WHERE name LIKE CONCAT('%',#{name},'%')
+ ORDER BY id
+    </select>
+</mapper>

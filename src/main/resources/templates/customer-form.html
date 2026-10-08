@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>顧客管理</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 60px;
+        }
+
+        .form-area {
+            width: 400px;
+            margin: 30px auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .form-item {
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 250px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 8px 30px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>顧客登録</h1>
+
+    <div class="form-area">
+
+        <form th:action="@{/customer}"
+              th:object="${customer}"
+              method="post">
+
+            <div class="form-item">
+                <label>名前</label>
+                <input type="text"
+                       th:field="*{name}"
+                       required>
+            </div>
+
+            <div class="form-item">
+                <label>メールアドレス</label>
+                <input type="email"
+                       th:field="*{email}">
+            </div>
+
+            <button type="submit">登録</button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

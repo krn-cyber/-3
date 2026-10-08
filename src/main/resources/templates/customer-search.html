@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>顧客検索</title>
+</head>
+<body>
+    <h1>顧客検索</h1>
+	
+	<!-- 検索フォーム -->
+	<form th:action="@{/customer/search}" method="get">
+		
+		<label>名前：</label>
+		
+		<input type="text"
+		       name="name"
+			   th:value="${name}">
+			
+	    <button type="submit">
+			検索
+		</button>	   
+	</form>
+	
+	<hr>
+	
+	<!-- 検索結果 -->
+	
+	<h2>検索結果</h2>
+	
+	<table border="1">
+		
+		<tr>
+			<th>ID</th>
+			<th>名前</th>
+			<th>電話番号</th>
+			<th>メール</th>
+		</tr>
+		
+		<tr th:each="customer : ${customer}">
+			<td th:text="${customer.id}"></td>
+			<td th:text="${customer.name}"></td>
+			<td th:text="${customer.phoneNumber}"></td>
+			<td th:text="${customer.email}"></td>
+		</tr>
+	</table>
+	
+	<br>
+	<a th:href="@{customer/new}">
+		顧客登録へ戻る
+	</a>
+	</body>
+	  
+   </body>
+</html>

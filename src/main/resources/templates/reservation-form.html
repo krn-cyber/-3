@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>予約フォーム</title>
+
+<style>
+	body{
+		margin: 0;
+		min-height: 100vh;
+		text-align: center;
+	}
+	
+	h1{
+		margin-top: 60px;
+	}
+	
+	.form-area{
+		width: 400px;
+		margin: 30px auto;
+		padding: 30px;
+		border:1px solid #ccc;
+		border-radius: 10px;
+	}
+	
+	.form-item{
+		margin: 20px;
+	}
+	
+	label{
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+	}
+	
+	input,select,textarea{
+		width:250px;
+		padding: 8px;
+		box-sizing: border-box;
+	}
+	textarea{
+		height: 100px;
+	}
+	
+	button{
+		padding:8px 30px;
+		margin-top:10px;
+		font-size:16px;
+	}
+    </style>
+
+</head>
+
+<body>
+	<h1>予約登録</h1>
+	
+	<div class="form-area">
+		
+		<form th:action="@{/reservation}"
+		      th:object="${/reservation}"
+			  method ="post">
+			  
+	    <!-- 顧客ID -->
+		<div class="form-item">
+			<labal>顧客ID</labal>
+			
+			<input type="number"
+			   th:field="*{customerId}"
+			   required>
+		</div>
+		
+		<!-- 予約日 -->
+		<div class="form-item">
+			<label>予約時間</label>
+			
+			<input type="time"
+			   th:field="*{reservationTime}"
+			   required>
+		</div>
+		
+		<!-- 予約日 -->
+		<div class="form-item">
+			<label>物件</label>
+					
+			<select th:field="*{propertyName}"required>
+		      
+				<option value="">選択してください</option>
+				<option value="A物件">A物件</option>
+				<option value="B物件">B物件</option>
+				<option value="C物件">C物件</option>
+			　</select>	
+			</div>
+		 
+		<!-- メモ -->
+		<div class="form-item">
+			<label>メモ</label>
+			
+			<textarea th:field="*{memo}"></textarea>
+		</div>
+		
+		<!-- 登録 -->
+		<button type="submit">
+			予約を登録する
+		</button>
+		
+		  </form>
+	
+	  </div>
+
+　　</body>
+  
+</html>
