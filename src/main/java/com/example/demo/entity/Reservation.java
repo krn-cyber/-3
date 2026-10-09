@@ -2,8 +2,8 @@ package com.example.demo.entity;
 
 public class Reservation {
 	
+	// 予約ID
 	private Long id;
-	
 	// 顧客ID
 	private Long customerId;
 	// 予約日

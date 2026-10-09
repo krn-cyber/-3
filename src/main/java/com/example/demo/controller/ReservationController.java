@@ -20,11 +20,12 @@ public class ReservationController {
 		this.reservationService = reservationService;
 	}
 
-	// 予約登録画面を表示する
-	@GetMapping("/reservation/new")
+	// 予約一覧画面を表示する
+	@GetMapping("/reservation/list")
 	public String newReservation(Model model) {
-		model.addAttribute("reservation", new Reservation());
-		return "reservation-form";
+		model.addAttribute("reservations", reservationService.findAll()
+				);
+		return "reservation-list";
 	}
 	// 予約を登録する
 	@PostMapping("/reservation")

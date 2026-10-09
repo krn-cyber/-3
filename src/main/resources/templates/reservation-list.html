@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<bodyhtml xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>予約一覧</title>
+
+<body>
+	<style>
+		body{
+			margin: 0;
+			text-align: center;
+		}
+		
+		h1{
+			margin-top: 50px;
+		}
+		
+		table{
+			margin: 30px auto;
+			border-collapse: collapse;
+		}
+		
+		th,td{
+			padding: 10px 15px;
+			border: 1px solid #333;
+		}
+		
+		a{
+			display: inline-block;
+			margin-top: 20px;
+		}
+
+		</style>
+	</head>
+	
+</body>
+   <h1>予約一覧</h1>
+   
+   <table border="1">
+	 <thead>
+		<tr>
+			<th>予約ID</th>
+			<th>顧客ID</th>
+			<th>予約日</th>
+			<th>予約時間</th>
+			<th>物件名</th>
+			<th>備考欄</th>
+		</tr>
+	 </thead>
+ <tbody>
+	 <tr th:each="reservation : ${reservations}">
+		<td th:text="${reservation.id}"></td>
+		<td th:text="${reservation.customerid}"></td>
+		<td th:text="${reservation.reservationDate}"></td>
+		<td th:text="${reservation.reservationTime}"></td>
+		<td th:text="${reservation.propertyName}"></td>
+		<td th:text="${reservation.memo}"></td>
+	     </tr>
+	<tr th:if="${#lists.isEmpty(reservations)}">
+		<td colspan="6">予約データがありません</td>
+	　　　</tr>
+      </tbody>
+   </table>
+   
+   <p>
+	<a th:href="@{/reservation/new}">予約登録へ戻る</a>
+     </p>
+   </body>
+ </html>
