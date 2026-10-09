@@ -52,7 +52,7 @@
 </head>
 
 <body>
-	<h1>予約登録</h1>
+	<h1>予約フォーム</h1>
 	
 	<div class="form-area">
 		
@@ -65,7 +65,9 @@
 			<labal>顧客ID</labal>
 			
 			<input type="number"
+			   id="customerId"
 			   th:field="*{customerId}"
+			   min="1"
 			   required>
 		</div>
 		
@@ -73,14 +75,24 @@
 		<div class="form-item">
 			<label>予約時間</label>
 			
-			<input type="time"
+			<input type="date"
+			   id="reservationDate"
+			   th:field="*{reservationDate}"
+			   required>
+			   
+		<!-- 予約時間 -->
+		 <div class="form-item">
+			 <label>予約時間</label>
+			   			
+			  <input type="time"
+			   id="reservationTime"
 			   th:field="*{reservationTime}"
 			   required>
 		</div>
 		
-		<!-- 予約日 -->
+		<!-- 物件名 -->
 		<div class="form-item">
-			<label>物件</label>
+			<label for="popertyName">物件</label>
 					
 			<select th:field="*{propertyName}"required>
 		      
@@ -91,9 +103,9 @@
 			　</select>	
 			</div>
 		 
-		<!-- メモ -->
+		<!-- 備考欄 -->
 		<div class="form-item">
-			<label>メモ</label>
+			<label for="memo">備考欄</label>
 			
 			<textarea th:field="*{memo}"></textarea>
 		</div>

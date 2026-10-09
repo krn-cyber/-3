@@ -42,7 +42,7 @@ public class CustomerController {
 	// 顧客検索画面を表示する
 	@GetMapping("/customer/search")
 	public String searchPage(Model model) {
-	model.addAttribute("customer",List.of());
+	model.addAttribute("customers",List.of());
 	    return "customer-search";
 	}
 	
@@ -54,8 +54,9 @@ public class CustomerController {
 			@RequestParam(required = false)String phoneNumber,
 			@RequestParam(required = false)String email,
 			Model model) {
-	
-		List<Customer>customers = customerService.searchByName(name);
+		
+
+		List<Customer>customers = customerService.search(id,name,phoneNumber,email);
 		
 		model.addAttribute("customers",customers);
 		
@@ -64,6 +65,14 @@ public class CustomerController {
 		model.addAttribute("phoneNumber",phoneNumber);
 		model.addAttribute("email",email);
 		
-		return "customer-search";	
+		return "customer-search";
 	}
-}
+	
+	// 顧客を削除する
+		@PostMapping("/customer/delete")
+		public String delete(@RequestParam Long id) {
+			 customerService.deleteById(id);
+			 return "redirect:/customer/search";
+		}
+		
+	}

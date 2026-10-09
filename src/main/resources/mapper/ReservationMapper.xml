@@ -4,10 +4,30 @@
 
 <!-- 予約登録 -->
 <insert id="insert">
-
-INSERT INTO reservation
- (customer_id, reservation_date, reservation_time, property_name, memo)
+  INSERT INTO reservation
+    (customer_id, reservation_date, reservation_time, property_name, memo)
   VALUES
   (#{customerId}, #{reservationDate}, #{reservationTime}, #{propertyName}, #{memo})
    </insert>
+   
+<!-- 予約一覧 -->
+<select id="findAll"
+resultType="com.example.demo.entity.Reservation">
+  SELECT
+      id,
+      customer_id AS customerId,
+      reservation_date AS reservationDate,
+      reservation_time AS reservationTime,
+      property_name AS propertyName,
+      memo
+      FROM reservation
+      ORDER BY reservation_date,reservation_time,id
+</select>  
+
+<!-- IDで予約検索 -->
+<delete id="deletebyId">
+ DELETE FROM reservation
+ WHERE id = #{id}
+</delete>
+
 </mapper>

@@ -21,7 +21,15 @@ public class CustomerService {
 		customerMapper.insert(customer);
 	}
 	// 顧客を登録する
-	public List<Customer> searchByName(String name) {
-		return customerMapper.searchByname(name);
-   }
+	public List<Customer> search(
+			Long id,
+			String name,
+			String phoneNumber,
+			String email) {
+		return customerMapper.search(id,name,phoneNumber,email);
+	}
+    // 顧客を削除
+	public void deleteById(Long id) {
+		customerMapper.deleteById(id);
+	}
 }

@@ -5,16 +5,45 @@
 
 <!-- 顧客登録 -->
 <insert id="insert">
- INSERT INTO customer
-   (name,phone_number,email)
+  INSERT INTO customer
+    (name,phone_number,email)
    VALUES
    (#{name},#{phoneNumber},#{email})
    </insert>
 
-<!-- 名前で顧客検索 -->   
-<select id="searchByName" resultType="com.example.demo.entity.Customer">
+<!-- 顧客検索 -->   
+<select id="search"
+
+ resultType="com.example.demo.entity.Customer">
+
  SELECT id,name,phone_number AS phonenumber,email FROM customer
- WHERE name LIKE CONCAT('%',#{name},'%')
- ORDER BY id
+ 
+  <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+
+            <if test="name != null and name.trim() != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+
+            <if test="phoneNumber != null and phoneNumber.trim() != ''">
+                AND phone_number = #{phoneNumber}
+            </if>
+
+            <if test="email != null and email.trim() != ''">
+                AND email = #{email}
+            </if>
+        </where>
+        
+          ORDER BY id
     </select>
+        
+        
+ <!-- 顧客削除 -->
+ <delete id="deleteById">
+   DELETE FROM customer
+   WHERE id = #{id}
+ </delete>
+ 
 </mapper>

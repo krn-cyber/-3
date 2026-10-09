@@ -25,6 +25,7 @@
 	
 	.form-row label{
 		text-align: right;
+		white-space: nowrap;
 	}
 	
 	.form-row input{
@@ -59,7 +60,8 @@
     <h1>顧客検索</h1>
 	
 	<!-- 検索フォーム -->
-	<form th:action="@{/customer/search}" method="get">
+	<form class="search-form" 
+	      th:action="@{/customer/search/result}" method="get">
 		
 		<div class="form-row">
 		<label>　　顧客ID　　：</label>
@@ -101,18 +103,27 @@
 			<th>メール</th>
 		</tr>
 		
-		<tr th:each="customer : ${customer}">
+		<tr th:each="customer : ${customers}">
 			<td th:text="${customer.id}"></td>
 			<td th:text="${customer.name}"></td>
 			<td th:text="${customer.phoneNumber}"></td>
 			<td th:text="${customer.email}"></td>
+		
+		<td>
+		   <form th:action="@{/customer/delete}" method="post"
+			 onsubmit="return confirm('この顧客を削除しますか？');">
+		   <input type="hidden" name="id" th:value="${customer.id}">
+		   <button type="submit">削除</button>
+	       </form>
+          </td>
 		</tr>
 	</table>
 	
 	<br>
-	<a th:href="@{customer/new}">
+	<a th:href="@{/customer/new}">
 		顧客登録へ戻る
 	</a>
+	
 	</body>
 	  
    </body>
