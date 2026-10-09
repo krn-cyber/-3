@@ -11,35 +11,35 @@
    (#{name},#{phoneNumber},#{email})
    </insert>
 
-<!-- 顧客検索 -->   
+<!-- 顧客検索 -->
 <select id="search"
+        resultType="com.example.demo.entity.Customer">
+    SELECT
+        id,
+        name,
+        phone_number AS phoneNumber,
+        email
+    FROM customer
+    <where>
+        <if test="id != null">
+            AND id = #{id}
+        </if>
 
- resultType="com.example.demo.entity.Customer">
+        <if test="name != null and name.trim() != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
 
- SELECT id,name,phone_number AS phonenumber,email FROM customer
- 
-  <where>
-            <if test="id != null">
-                AND id = #{id}
-            </if>
+        <if test="phoneNumber != null and phoneNumber.trim() != ''">
+            AND phone_number LIKE CONCAT('%', #{phoneNumber}, '%')
+        </if>
 
-            <if test="name != null and name.trim() != ''">
-                AND name LIKE CONCAT('%', #{name}, '%')
-            </if>
-
-            <if test="phoneNumber != null and phoneNumber.trim() != ''">
-                AND phone_number = #{phoneNumber}
-            </if>
-
-            <if test="email != null and email.trim() != ''">
-                AND email = #{email}
-            </if>
-        </where>
-        
-          ORDER BY id
-    </select>
-        
-        
+        <if test="email != null and email.trim() != ''">
+            AND email LIKE CONCAT('%', #{email}, '%')
+        </if>
+    </where>
+    ORDER BY id
+</select>
+           
  <!-- 顧客削除 -->
  <delete id="deleteById">
    DELETE FROM customer
