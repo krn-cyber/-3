@@ -4,14 +4,33 @@
 <head>
 <meta charset="UTF-8">
 <title>メニュー</title>
+
+<style>
+	body{
+		text-align: center;
+		min-height:100vh;
+	}
+
+	.logout-area{
+		min-height:calc(100vh - 100px);
+				
+		display: flex;
+		justify-content: center;
+		align-items: center;
+				
+		text-align: center;
+		transform: translateY(-50px);
+	}
+  </style>
 </head>
+
 <body>
-    <h2>メニュー画面</h2>
+    <h2>MENU</h2>
 	<hr>
 	
 <!--  予約フォーム -->
 	<a th:href="@{/reservation/new}">
-	 予約フォーム
+	 来場予約登録
       </a>
 	    <br>
 
