@@ -50,7 +50,7 @@
 			padding: 8px 25px;
 			margin-left: 110px;
 		}
-	</style>
+	    </style>
 	</head>
 	
 	<body>
@@ -59,9 +59,9 @@
 	
 	<!-- ログインエリア -->
 	<div class ="login-area">
-	<div class = "login-form">	
+	    <div class = "login-form">	
 		
-	<!-- エラー表示 -->
+	<!-- ログインエラー表示 -->
 	<div th:if="${param.error}">
 		<p style="color: red;">ログインIDまたはパスワードが違います</p>
 		</div>
@@ -71,17 +71,15 @@
 		<p style="color:blue">ログアウトしました</p>
 	</div>
 		<form th:action="@{/authentication}" method="post" th:object="${loginForm}">
-    
-	<form th:action="@{/authentication}" method="post">
-			
 		<div>
+			
 			<!-- ユーザー名 -->
 			<label for="usernameInput">ログインID</label>
 			<input type="text" name="username">
 			</div>
 			
 			<div>
-				<!-- パスワード -->
+			<!-- パスワード -->
 			<label for="passwordInput">パスワード</label>
 			<input type="password" name="password">
 			</div>

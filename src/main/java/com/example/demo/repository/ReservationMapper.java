@@ -11,9 +11,9 @@ public interface ReservationMapper {
 	
 	List<Reservation> findAll();
 	
-	void save(Reservation reservation);
+	int save(Reservation reservation);
 	
-	void deleteById(Long id);
+	int deleteById(Long id);
 	
 	int getTotalPeople();
 }

@@ -9,21 +9,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Reservation {
     
-	//** ログインID */
+	//** 予約ID（DBで自動採番） */
 	private Long id;
-	//** 名前 */
+	//** 顧客ID */
+	private Long customerId;
+	
+	
+	//** 顧客情報*/
 	private String name;
-	//** 電話番号 */
-	private String phonenumber;
-	//** メールアドレス */
+	private String phoneNumber;
 	private String email;
-	//** 予約日 */
-	private String reservationdate;
-	//** 予約時間 */
-	private String reservationtime;
-	//** 予約人数 */
+	
+	
+	//** 予約情報 */
+	private String reservationDate;
+	private String reservationTime;
+	
 	private Integer numberOfPeople;
-	//** 備考欄 */
+	private String propertyName;
 	private String memo;
 
 }

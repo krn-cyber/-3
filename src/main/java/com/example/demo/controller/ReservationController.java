@@ -18,50 +18,57 @@ public class ReservationController {
 	    public ReservationController(ReservationService reservationService) {
 	        this.reservationService = reservationService;
 	    }
-
+	    
 	    @GetMapping("/")
-	    public String login(Model model) {
-	    	model.addAttribute("loginForm",new LoginForm());
-	        return "login";
+	    public String index() {
+	    	return "redirect:/login";
 	    }
 
+	    @GetMapping("/login")
+	    public String login() {
+	        return "login";
+	    }
+	    @GetMapping("/menu")
+	    public String menu() {
+	    	return "menu";
+	    }
+	    
+        // 予約一覧
 	    @GetMapping("/reservations")
 	    public String reservationList(Model model) {
 
-	        model.addAttribute(
-	                "reservations",
-	                reservationService.findAll()
+	        model.addAttribute( "reservations",reservationService.findAll()
 	        );
-
-	        return "reservation-list";
+	        return "reservations-list";
 	    }
-
-	    @GetMapping("/reservations/new")
+	    
+        // 予約フォーム
+	    @GetMapping("/reservation/new")
 	    public String reservationForm(Model model) {
-
-	        model.addAttribute(
-	                "reservation",
-	                new Reservation()
-	        );
-
+            model.addAttribute("reservation",new Reservation() );
 	        return "reservation-form";
 	    }
 
+	    // 予約登録
 	    @PostMapping("/reservations")
 	    public String createReservation(
-	            @ModelAttribute Reservation reservation) {
-
-	        reservationService.save(reservation);
-
+	        @ModelAttribute Reservation reservation,Model model) {
+	        
+	    	try {
+	    	reservationService.save(reservation);
 	        return "redirect:/reservations";
+	        
+	    } catch (IllegalArgumentException e) {
+	    	model.addAttribute("errorMessage", e.getMessage());
+	    	model.addAttribute("reservation",reservation);
+	        return "reservation-form";
+	      }
 	    }
-
+	    
+	    // 予約キャンセル
 	    @PostMapping("/reservations/delete")
-	    public String deleteReservation(
-	            @RequestParam Long id) {
-
+	    public String deleteReservation(@RequestParam Long id) {
 	        reservationService.delete(id);
-
 	        return "redirect:/reservations";
 	    }
 	}

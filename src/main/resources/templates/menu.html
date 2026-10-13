@@ -11,30 +11,30 @@
 	
 <!--  予約フォーム -->
 	<a th:href="@{/reservation/new}">
-	 予約フォームへ
+	 予約フォーム
       </a>
 	    <br>
 
 <!--  予約一覧 -->
 <a th:href="@{/reservations}">
-    予約一覧を見る
+    予約一覧
     </a>	
   
 	<br><br>
 
 <!--  ログインしているユーザー名 -->  	
 <div sec:authentication="name">
-	ログインユーザー
+	user
 	   </div>
 	   
-<!--  認証されたユーザーだけ表示 -->.>
+<!--  認証されたユーザーだけ表示 -->
 	 <div sec:authorize="isAuthenticated()">
 		ログインしています
 	</div>
 	
 	<br>
 	
-<!-- ログアウト -->>
+<!-- ログアウト -->
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="ログアウト">
 	</form>

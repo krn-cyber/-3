@@ -1,53 +1,132 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.tymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>予約登録</title>
+
+<style>
+    body {
+        font-family: sans-serif;
+        margin: 40px;
+    }
+
+    .form-container {
+        width: 500px;
+        margin: 0 auto;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-item {
+        margin-bottom: 15px;
+    }
+
+    .form-item label {
+        display: inline-block;
+        width: 120px;
+    }
+
+    .form-item input,
+    .form-item textarea {
+        width: 300px;
+        padding: 7px;
+        box-sizing: border-box;
+    }
+
+    .form-item textarea {
+        height: 100px;
+        vertical-align: top;
+    }
+
+    .button-area {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .button-area button,
+    .button-area a {
+        display: inline-block;
+        padding: 10px 30px;
+        margin: 5px;
+        font-size: 14px;
+        text-decoration: none;
+        border: 1px solid #999;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .button-area a {
+        color: black;
+        background-color: #f5f5f5;
+    }
+</style>
 </head>
 
 <body>
- <h2>予約登録</h2>
- <form action="/reservations" method="post">
-	
-	<p>
-	 名前：
-	<input type ="text" name="name" required>
-	</p>
-	
-	<p>
-	電話番号：
-	<input type ="tel" name="phonenumber">
-	</p>
-	
-	<p>
-	メールアドレス：
-	<input type ="text" name="email">
-	</p>
-	
-	<p>
-	予約日：
-	<input type ="text" name="reservationdate"required>
-	</p>
-	
-	<p>
-	予約時間：
-    <input type ="text" name="reservationtime"　min="9:00" step="1800">
-	</p>
-	
-	<p>
-	予約人数：
-	<input type ="text" name="numberOfPeople" min="1" required>
-	</p>
-	
-	<p>
-	備考欄：
-	<input type ="text" name="name" required>
-	</p>
-	
- </form>
-   <p>
-	<a href="/"> 戻る </a>
-   </p>
+<div class="form-container">
 
+    <h2>予約登録</h2>
+
+    <form th:action="@{/reservations}" method="post">
+
+        <!-- CSRF対策 -->
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+
+        <div class="form-item">
+            <label for="name">名前</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-item">
+            <label for="phonenumber">電話番号</label>
+            <input type="tel" id="phonenumber"
+                   name="phonenumber" required>
+        </div>
+
+        <div class="form-item">
+            <label for="email">メールアドレス</label>
+            <input type="email" id="email"
+                   name="email" required>
+        </div>
+
+        <div class="form-item">
+            <label for="reservationdate">予約日</label>
+            <input type="date" id="reservationdate"
+                   name="reservationdate" required>
+        </div>
+
+        <div class="form-item">
+            <label for="reservationtime">予約時間</label>
+            <input type="time" id="reservationtime"
+                   name="reservationtime"
+                   min="09:00" max="18:00"
+                   step="1800" required>
+        </div>
+
+        <div class="form-item">
+            <label for="numberOfPeople">予約人数</label>
+            <input type="number" id="numberOfPeople"
+                   name="numberOfPeople"
+                   min="1" required>
+            名
+        </div>
+
+        <div class="form-item">
+            <label for="memo">備考欄</label>
+            <textarea id="memo" name="memo"></textarea>
+        </div>
+
+        <div class="button-area">
+            <button type="submit">予約する</button>
+            <a th:href="@{/menu}">戻る</a>
+        </div>
+
+    </form>
+</div>
 </body>
 </html>
