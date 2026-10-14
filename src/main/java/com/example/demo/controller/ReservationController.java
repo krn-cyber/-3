@@ -57,7 +57,6 @@ public class ReservationController {
 	    	try {
 	    	reservationService.save(reservation);
 	        return "redirect:/reservations";
-	        
 	    } catch (IllegalArgumentException e) {
 	    	model.addAttribute("errorMessage", e.getMessage());
 	    	model.addAttribute("reservation",reservation);

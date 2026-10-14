@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.CustomerMapper">
 
+<!-- 名前・電話番号・メールアドレスから顧客を検索  -->
 <select id="findByContact"
   resultType="com.example.demo.entity.Customer">
   
@@ -16,5 +17,24 @@
       AND email = #{email}
      LIMIT 1
   </select>
+  
+  <!-- 顧客を新規登録する  -->
+   <insert id="insert"
+        parameterType ="com.example.demo.entity.Customer"
+        useGeneratedKeys="true"
+        keyProperty="id"
+        keyColumn="id">
+   
+  INSERT INTO customer(
+   name,
+   phone_number,
+   email
+   )
+  VALUES (
+   #{name},
+   #{phoneNumber},
+   #{email}
+   )
+    </insert>
 
 </mapper>

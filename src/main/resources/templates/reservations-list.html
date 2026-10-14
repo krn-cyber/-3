@@ -29,7 +29,8 @@
 	       }
 
 	       table {
-	           width: 1000px;
+	           width: max-content;
+			   min-width :1400px;
 	           margin: 0 auto;
 	           border-collapse: collapse;
 	       }
@@ -63,6 +64,11 @@
 	           text-align: center;
 	           padding: 30px;
 	       }
+		   
+		   .nowrap{
+			white-space:nowrap;
+		   }
+		   
    </style>
 </head>
 
@@ -82,12 +88,13 @@
  <table>
 	<thead>
 		<tr>
-			<th>ID</th>
-			<th>名前</th>
-			<th>電話番号</th>
+			<th class="nowrap">物件名</th>
+			<th>予約ID</th>
+			<th class="nowrap">名前</thclass="nowrap">
+			<th class="nowrap">電話番号</th>
 			<th>メールアドレス</th>
-			<th>予約日</th>
-			<th>予約時間</th>
+			<th class="nowrap">予約日</th>
+			<th class="nowrap">予約時間</th>
 			<th>人数</th>
 			<th>備考欄</th>
 			<th>キャンセル</th>
@@ -98,23 +105,27 @@
   	
  <tr th:each="reservation : ${reservations}">
   		
+	    <td class="nowrap" th:text="${reservation.propertyName}">
+			Aレジデンス
+		</td>
+		
   		<td th:text="${reservation.id}">
 			1
 		</td>
 		  
-  		<td th:text="${reservation.name}">
+  		<td class="nowrap" th:text="${reservation.name}">
 			山田太郎
 		</td>
-  		<td th:text="${reservation.phoneNumber}">
+  		<td  class="nowrap" th:text="${reservation.phoneNumber}">
 			090-1234-5678
 		</td>
   		<td th:text="${reservation.email}">
 			example@example.com
 		</td>
-  		<td th:text="${reservation.reservationDate}">
+  		<td class="nowrap"  th:text="${reservation.reservationDate}">
 			2026-10-10
 		</td>
-  		<td th:text="${reservation.reservationTime}">
+  		<td class="nowrap" th:text="${reservation.reservationTime}">
 			11:00
 		</td>
   		<td th:text="${reservation.numberOfPeople}">

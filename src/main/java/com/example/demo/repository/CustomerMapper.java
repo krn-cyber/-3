@@ -11,5 +11,9 @@ public interface CustomerMapper {
 	Customer findByContact(
 	 @Param("name") String name,
 	 @Param("phoneNumber") String phoneNumber,
-	 @Param("email") String email);
+	 @Param("email") String email
+	 );
+	
+	// 顧客を新規登録する
+	void insert(Customer customer);
 }

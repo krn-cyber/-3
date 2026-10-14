@@ -62,6 +62,42 @@
         color: black;
         background-color: #f5f5f5;
     }
+	.time-buttons {
+	    display: flex;
+	    flex-wrap: wrap;
+	    gap: 10px;
+	    margin-top: 10px;
+		margin-left:120px;
+	}
+
+	.time-buttons label {
+	    cursor: pointer;
+	}
+
+	.time-buttons input[type="radio"] {
+	    display: none;
+	}
+
+	.time-buttons span {
+	    display: inline-block;
+	    padding: 12px 20px;
+	    border: 1px solid #999;
+	    border-radius: 8px;
+	    background-color: white;
+	    color: #333;
+	    text-align: center;
+	    min-width: 70px;
+	}
+
+	.time-buttons input[type="radio"]:checked + span {
+	    background-color: #3478db;
+	    color: white;
+	    border-color: #3478db;
+	}
+
+	.time-buttons span:hover {
+	    border-color: #3478db;
+	}
 </style>
 </head>
 
@@ -69,6 +105,10 @@
 <div class="form-container">
 
     <h2>予約登録</h2>
+	
+	<p th:if="${errorMessage}"
+	   th:text="${errorMessage}"
+	   style="color: red;"></p>
 
     <form th:action="@{/reservations}" method="post"
 	      th:object="${reservation}">
@@ -77,6 +117,16 @@
         <input type="hidden"
                th:name="${_csrf.parameterName}"
                th:value="${_csrf.token}">
+			   
+		<div class="form-item">
+		  <label for="propertyName">物件選択</label>
+		  <select id="propertyName" name="propertyName" required>
+			   <option value="">見学希望の物件を選択してください</option>
+			   <option value="Aレジデンス">Aレジデンス</option>
+			   <option value="パークハウスB">パークハウスB</option>
+			   <option value="Cレジデンス">Cレジデンス</option>
+			</select>
+		 </div>	   
 
         <div class="form-item">
             <label for="name">名前</label>
@@ -86,7 +136,7 @@
         <div class="form-item">
             <label for="phonenumber">電話番号</label>
             <input type="tel" id="phonenumber"
-                   name="phonenumber" required>
+                   name="phoneNumber" required>
         </div>
 
         <div class="form-item">
@@ -98,16 +148,54 @@
         <div class="form-item">
             <label for="reservationdate">予約日</label>
             <input type="date" id="reservationdate"
-                   name="reservationdate" required>
+                   name="reservationDate" required>
         </div>
 
         <div class="form-item">
-            <label for="reservationtime">予約時間</label>
-            <input type="time" id="reservationtime"
-                   name="reservationtime"
-                   min="09:00" max="17:00"
-                   step="1800" required>
-        </div>
+            <label>予約時間</label>
+
+			<div class="time-buttons">
+			    <label>
+			        <input type="radio" name="reservationTime" value="10:30" required>
+			        <span>10:30</span>
+			    </label>
+
+			    <label>
+			        <input type="radio" name="reservationTime" value="11:00">
+			        <span>11:00</span>
+			    </label>
+
+			    <label>
+			        <input type="radio" name="reservationTime" value="11:30">
+			        <span>11:30</span>
+			    </label>
+
+			    <label>
+			        <input type="radio" name="reservationTime" value="13:30">
+			        <span>13:30</span>
+			    </label>
+
+			    <label>
+			        <input type="radio" name="reservationTime" value="14:00">
+			        <span>14:00</span>
+			    </label>
+
+			    <label>
+			        <input type="radio" name="reservationTime" value="14:30">
+			        <span>14:30</span>
+			    </label>
+
+			    <label>
+			        <input type="radio" name="reservationTime" value="16:00">
+			        <span>16:00</span>
+			    </label>
+
+			    <label>
+			        <input type="radio" name="reservationTime" value="16:30">
+			        <span>16:30</span>
+			</label>
+		 </div>
+	 </div>
 
         <div class="form-item">
             <label for="numberOfPeople">予約人数</label>

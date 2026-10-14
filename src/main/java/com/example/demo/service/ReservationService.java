@@ -40,13 +40,17 @@ public class ReservationService {
 	    reservation.getEmail()
 	    );
 	
-	// ②顧客が見つからなければ登録を中止
+	// ②顧客が見つからなければ新規登録
 	if(customer == null) {
-		throw new IllegalArgumentException(
-		"顧客情報が見つかりません。名前・電話番号・メールアドレスを確認してください。");
+		customer = new Customer();
+		customer.setName(reservation.getName());
+		customer.setPhoneNumber(reservation.getPhoneNumber());
+		customer.setEmail(reservation.getEmail());
+		
+		customerMapper.insert(customer);
 	}
 	
-	// ③取得した顧客IDを予約に設定
+	// ③顧客IDを予約に設定
 	reservation.setCustomerId(customer.getId());
 	
 	// ④予約を登録
