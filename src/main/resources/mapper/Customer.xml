@@ -18,6 +18,45 @@
      LIMIT 1
   </select>
   
+  <!-- 来場済みの顧客を条件指定して検索 -->
+  <select id ="searchVisitedCustomers"
+      resultType = "com.example.demo.entity.Customer">
+      
+      SELECT 
+        c.id,
+        c.name,
+        c.phone_number AS phoneNumber,
+        c.email,
+        (SELECT STRING_AGG(DISTINCT r.property_name,',')
+      FROM reservation r
+      WHERE r.customer_id = c.id
+          AND r.visited = TRUE
+          ) AS visitedProperties
+          
+        FROM customer c
+        
+        WHERE EXISTS(
+         SELECT 1
+         FROM reservation r
+         WHERE r.customer_id = c.id
+          AND r.visited = TRUE
+        )
+          
+   <if test ="id != null">
+       AND c.id = #{id}
+   </if>
+   
+   <if test="name != null and name != ''">
+       AND c.name ILIKE '%' || #{name} || '%'
+   </if>
+   
+   <if test="phoneNumber != null and phoneNumber != ''">
+       AND c.phone_number LIKE '%' || #{email} || '%'
+   </if>
+   
+   ORDER BY c.id
+ </select>
+  
   <!-- 顧客を新規登録する  -->
    <insert id="insert"
         parameterType ="com.example.demo.entity.Customer"

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>顧客検索</title>
+
+<style>
+   body {
+	font-family: sans-serif;
+	margin: 30px;
+	background-color: #f5f7fa;
+   }
+   
+   h2{
+	text-align: center;
+   }
+   
+   .search-area{
+	max-width: 600px;
+	margin: 20px auto;
+   }
+   
+   .form-row{
+	margin-bottom:15px;
+   }
+   
+   label{
+	display: block;
+	margin-bottom: 5px;
+   }
+   
+   input{
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+   }
+   
+   button{
+	padding: 10px 20px;
+	cursor: pointer;
+   }
+   
+   table{
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+   }
+   
+   th,td{
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: left;
+   }
+   
+   th{
+	background-color: #e8eef7;
+   }
+   
+   .message{
+	text-align: center;
+	margin: 20px;
+   }
+     </style>
+   </head>  
+   
+<body>
+	
+   <h2>顧客検索</h2>
+   <hr>
+   <div class="search-area">
+       <form th:action="@{/customers/results}" method="get">
+    
+     <div class="form-row">
+		<label for="id">顧客ID</label>
+		<input type="number" id="id" name="id"
+		    min="1" th:value="${searchId}">
+   </div>
+   
+   <div class="form-row">
+	  <label for="name">名前</label>
+	  <input type="text" id="name" name="name"
+	      th:value="${searchName}">
+   </div>
+   
+   <div class="form-row">
+	  <label for="phoneNumber">電話番号</label>
+	  <input type="tel" id="phoneNumber" name="phoneNumber"
+	      th:value="${searchphoneNumber}">
+   </div>
+   
+   <div class="form-row">
+	  <label for="email">メールアドレス</label>
+	  <input type="email" id="email" name="email"
+	      th:value="${searchEmail}">
+   </div>
+   
+      <button type="submit">検索</button>
+     
+	   </form>
+   
+   </div>
+
+   <p class="message" th:if="${message}" th:text="${message}"></p>
+
+   <table th:if="${customers != null}">
+       <thead>
+           <tr>
+               <th>顧客ID</th>
+               <th>名前</th>
+               <th>携帯電話番号</th>
+               <th>メールアドレス</th>
+			   <th>ご見学履歴</th>
+           </tr>
+       </thead>
+
+       <tbody>
+           <tr th:each="customer : ${customers}">
+               <td th:text="${customer.id}"></td>
+               <td th:text="${customer.name}"></td>
+               <td th:text="${customer.phoneNumber}"></td>
+               <td th:text="${customer.email}"></td>
+			   <td th:text="${customer.visitedProperties}"></td>
+           </tr>
+       </tbody>
+   </table>
+
+   <br>
+
+   <div style="text-align: center;">
+       <a th:href="@{/menu}">戻る</a>
+   </div>
+</body>
+</html>

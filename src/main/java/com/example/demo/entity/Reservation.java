@@ -27,6 +27,7 @@ public class Reservation {
 	
 	private Integer numberOfPeople;
 	private String propertyName;
+	private Boolean visited;
 	private String memo;
 
 }

@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.ReservationMapper">
 
-	<select id="findAll"
-		resultType="com.example.demo.entity.Reservation">
-		
+<!-- すべての予約を取得：残す -->
+<select id="findAll"
+        resultType="com.example.demo.entity.Reservation">
+ 
 		SELECT 
 		r.id,
 		r.customer_id AS customerId,
@@ -15,11 +16,37 @@
 		r.reservation_time AS reservationTime,
 		r.number_of_people AS numberOfPeople,
 		r.property_name AS propertyName,
+		r.visited AS visited,
 		r.memo AS memo
 		FROM reservation r
 		JOIN customer c ON r.customer_id = c.id
 		ORDER BY r.reservation_date,r.reservation_time
 	</select>
+	
+
+<!-- 指定した日付の予約を取得 -->
+  <select id="findByDate"
+       parameterType="string"
+       resultType="com.example.demo.entity.Reservation">
+       
+       SELECT 
+		r.id,
+		r.customer_id AS customerId,
+		c.name AS name,
+		c.phone_number AS phoneNumber,
+		c.email AS email,
+		r.reservation_date AS reservationDate,
+		r.reservation_time AS reservationTime,
+		r.number_of_people AS numberOfPeople,
+		r.property_name AS propertyName,
+		r.visited AS visited,
+		r.memo AS memo
+		FROM reservation r
+		JOIN customer c ON r.customer_id = c.id
+		WHERE r.reservation_date = #{reservationDate}
+		ORDER BY r.reservation_time
+	</select>	
+		
 	
 	<select id="getTotalPeople" resultType="int">
 	SELECT COALESCE(SUM(number_of_people),0)
@@ -52,4 +79,13 @@
 	WHERE id = #{id}
 	
 	</delete>
+	
+   <!-- 来場済みに変更 -->
+   <update id="markVisited">
+    UPDATE reservation
+    SET visited = TRUE
+    WHERE id = #{id}
+    
+   </update>
+   
 </mapper>

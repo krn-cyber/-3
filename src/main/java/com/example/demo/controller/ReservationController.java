@@ -33,13 +33,33 @@ public class ReservationController {
 	    	return "menu";
 	    }
 	    
-        // 予約一覧
+        // 予約一覧：最初は今日の日付を表示
 	    @GetMapping("/reservations")
-	    public String reservationList(Model model) {
+	    public String reservationList(
+	    		@RequestParam(required = false) String date,
+	    		Model model) {
+	    	
+	    // 日付が指定されていなければ、今日の日付にする
+	        if (date == null || date.isBlank()) {
+	            date = java.time.LocalDate.now(
+	                   java.time.ZoneId.of("Asia/Tokyo")).toString();
+	        }
+	        
+	    // 指定した日付の予約を取得
+	    	model.addAttribute("reservations", reservationService.findByDate(date));
+	    	
+	    // 画面に表示する日付
+	    	model.addAttribute("selectedDate",date);
+	    	
+	    // 前日、翌日
+	    	java.time.LocalDate selected =
+	    			java.time.LocalDate.parse(date);
+	    	
+	    	model.addAttribute("previousDate",selected.minusDays(1).toString());
 
-	        model.addAttribute( "reservations",reservationService.findAll()
-	        );
-	        return "reservations-list";
+	    	model.addAttribute("nextDate",selected.plusDays(1).toString());
+
+	    	return "reservations-list";
 	    }
 	    
         // 予約フォーム
@@ -70,4 +90,12 @@ public class ReservationController {
 	        reservationService.delete(id);
 	        return "redirect:/reservations";
 	    }
+	    
+	    // 来場済みに変更
+	    @PostMapping("/reservations/visited")
+	    public String markVisited(@RequestParam Long id) {
+	    	reservationService.markVisited(id);
+	    	return "redirect:/reservations";
+	    	
+          }
 	}

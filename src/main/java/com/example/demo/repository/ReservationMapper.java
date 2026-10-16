@@ -16,4 +16,9 @@ public interface ReservationMapper {
 	int deleteById(Long id);
 	
 	int getTotalPeople();
+	
+	void markVisited(Long id);
+	
+	List<Reservation> findByDate(String reservationDate);
+
 }

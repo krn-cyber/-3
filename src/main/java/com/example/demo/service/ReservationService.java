@@ -25,8 +25,13 @@ public class ReservationService {
 	}
 	
 	// 予約一覧
-	public List<Reservation> findAll(){
-		return reservationMapper.findAll();
+	public List <Reservation> findAll(){
+		  return reservationMapper.findAll();
+	}
+	
+	// 指定した日付の予約を取得
+	public List <Reservation> findByDate(String reservationDate){
+		  return reservationMapper.findByDate(reservationDate);
 	}
 	
 	// 予約登録
@@ -55,9 +60,14 @@ public class ReservationService {
 	
 	// ④予約を登録
 	reservationMapper.save(reservation);
-}
+    }
 	public void delete(Long id) {
 		reservationMapper.deleteById(id);
+	}
+	
+	// ⑤来場状況を更新
+	public void markVisited(Long id) {
+		reservationMapper.markVisited(id);
 	}
 	
 	public int getTotalPeople() {

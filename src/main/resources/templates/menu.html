@@ -1,62 +1,284 @@
+```html
 <!DOCTYPE html>
-<html xmlns:th="http://www.tymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-<meta charset="UTF-8">
-<title>メニュー</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メニュー</title>
 
-<style>
-	body{
-		text-align: center;
-		min-height:100vh;
-	}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-	.logout-area{
-		min-height:calc(100vh - 100px);
-				
-		display: flex;
-		justify-content: center;
-		align-items: center;
-				
-		text-align: center;
-		transform: translateY(-50px);
-	}
-  </style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Yu Gothic", "Meiryo", sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* ヘッダー */
+        header {
+            background-color: #1e3a5f;
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 3px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            font-size: 15px;
+            color: #dbeafe;
+        }
+
+        /* メインエリア */
+        main {
+            width: 90%;
+            max-width: 720px;
+            margin: 40px auto;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome h2 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #64748b;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* メニューカード */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .menu-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 24px;
+            background-color: white;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.10);
+        }
+
+        .menu-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 58px;
+            height: 58px;
+            background-color: #dbeafe;
+            border-radius: 12px;
+            color: #1d4ed8;
+            font-size: 28px;
+        }
+
+        .menu-text {
+            flex: 1;
+        }
+
+        .menu-text h3 {
+            margin: 0 0 7px;
+            font-size: 21px;
+        }
+
+        .menu-text p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .arrow {
+            font-size: 25px;
+            color: #64748b;
+        }
+
+        /* ログイン情報 */
+        .user-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 35px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .user-info {
+            font-size: 15px;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .login-status {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .logout-button {
+            padding: 10px 18px;
+            background-color: white;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #f1f5f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 20px 25px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* スマートフォン向け */
+        @media (max-width: 480px) {
+            main {
+                margin: 25px auto;
+            }
+
+            .menu-card {
+                padding: 18px;
+                gap: 12px;
+            }
+
+            .menu-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 23px;
+            }
+
+            .menu-text h3 {
+                font-size: 18px;
+            }
+
+            .menu-text p {
+                font-size: 12px;
+            }
+
+            .user-area {
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h2>MENU</h2>
-	<hr>
-	
-<!--  予約フォーム -->
-	<a th:href="@{/reservation/new}">
-	 新規登録
-      </a>
-	    <br>
 
-<!--  予約一覧 -->
-<a th:href="@{/reservations}">
-    予約一覧
-    </a>	
-  
-	<br><br>
+    <header>
+        <h1>RESERVATION SYSTEM</h1>
+        <p>予約・顧客管理システム</p>
+    </header>
 
-<!--  ログインしているユーザー名 -->  	
-<div sec:authentication="name">
-	user
-	   </div>
-	   
-<!--  認証されたユーザーだけ表示 -->
-	 <div sec:authorize="isAuthenticated()">
-		ログインしています
-	</div>
-	
-	<br>
-	
-<!-- ログアウト -->
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="ログアウト">
-	</form>
-	
+    <main>
+
+        <div class="welcome">
+            <h2>MENU</h2>
+            <p>ご利用する機能を選択してください</p>
+        </div>
+
+        <div class="menu-list">
+
+            <!-- 新規登録 -->
+            <a class="menu-card" th:href="@{/reservation/new}">
+                <div class="menu-icon">＋</div>
+                <div class="menu-text">
+                    <h3>新規登録</h3>
+                    <p>新しい予約情報を登録します</p>
+                </div>
+                <span class="arrow">›</span>
+            </a>
+
+            <!-- 予約一覧 -->
+            <a class="menu-card" th:href="@{/reservations}">
+                <div class="menu-icon">▦</div>
+                <div class="menu-text">
+                    <h3>予約一覧</h3>
+                    <p>登録済みの予約情報を確認します</p>
+                </div>
+                <span class="arrow">›</span>
+            </a>
+
+            <!-- 顧客検索 -->
+            <a class="menu-card" th:href="@{/customers/search}">
+                <div class="menu-icon">⌕</div>
+                <div class="menu-text">
+                    <h3>顧客検索</h3>
+                    <p>顧客情報やご見学履歴を確認します</p>
+                </div>
+                <span class="arrow">›</span>
+            </a>
+
+        </div>
+
+        <!-- ログイン情報とログアウト -->
+        <div class="user-area"
+             sec:authorize="isAuthenticated()">
+
+            <div class="user-info">
+                <div class="user-name" sec:authentication="name">
+                    user
+                </div>
+                <div class="login-status">
+                    ログイン中
+                </div>
+            </div>
+
+            <form th:action="@{/logout}" method="post">
+                <button class="logout-button" type="submit">
+                    ログアウト
+                </button>
+            </form>
+
+        </div>
+
+    </main>
+
+    <footer>
+        Reservation Management System
+    </footer>
+
 </body>
 </html>
+```
